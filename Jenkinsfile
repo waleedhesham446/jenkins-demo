@@ -1,5 +1,11 @@
 pipeline {
   agent any
+  
+  tools {
+//     supports only maven, gradle, jdk
+    gradle 'Gradle 8.0-milestone-2'
+  }
+  
   stages {
     stage("Run frontend") {
       steps {
@@ -12,9 +18,12 @@ pipeline {
     stage("Run backend") {
       steps {
         echo 'executing gradle...'
-        withGradle() {
-          sh './gradlew -v'
-        }
+//         withGradle() {
+//           sh './gradlew -v'
+//         }
+        
+//         can run without wrapper since gradle is defined here
+        sh './gradlew -v'
       }
     }
   }
