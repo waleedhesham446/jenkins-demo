@@ -1,3 +1,5 @@
+def gv
+
 CODE_CHANGES = getGitChanges()
 pipeline {
 
@@ -20,6 +22,14 @@ pipeline {
   
   stages {
     
+    stage("init") {
+      steps {
+        script {
+          gv = load "script.groovy"
+        }
+      }
+    }
+    
     stage("build") {
       when {
         expression {
@@ -27,7 +37,10 @@ pipeline {
         }
       }
       steps {
-        echo 'building the application'
+        //  echo 'building the application'
+        script {
+          gv.buildApp()
+        }
         echo "building version ${NEW_VERSION}"
       }
     }
